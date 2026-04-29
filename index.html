@@ -676,6 +676,33 @@
       .hero-pill { font-size: 0.8rem; padding: 8px 14px; }
     }
 
+    /* ─── COMPARATIVO MOBILE ────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      /* Remove horizontal scroll */
+      .comp-table-wrap { overflow-x: hidden; border-radius: 10px; }
+
+      /* Force fixed layout so columns respect percentages */
+      .comp-table { table-layout: fixed; width: 100%; font-size: 0.7rem; }
+
+      /* Feature column: 40% | each plan: ~20% */
+      .comp-table th:first-child { width: 40%; padding: 10px 8px; font-size: 0.65rem; }
+      .comp-table th.th-broto,
+      .comp-table th.th-planta,
+      .comp-table th.th-arvore { width: 20%; padding: 10px 4px; font-size: 0.72rem; line-height: 1.3; }
+
+      /* Hide price text inside headers — keep only emoji + name */
+      .comp-table th.th-broto span,
+      .comp-table th.th-planta span,
+      .comp-table th.th-arvore span { display: none; }
+
+      /* Data cells: compact padding, allow wrapping */
+      .comp-table td { padding: 9px 4px; line-height: 1.4; word-break: break-word; font-size: 0.7rem; }
+      .comp-table td:first-child { padding: 9px 8px; font-size: 0.7rem; }
+
+      /* Category header rows */
+      .comp-table tr.cat-row td { padding: 6px 8px; font-size: 0.58rem; letter-spacing: 0.06em; }
+    }
+
     /* ─── PRINT ──────────────────────────────────────────────────────── */
     @media print {
       nav { display: none; }
