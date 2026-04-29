@@ -787,6 +787,200 @@
     @media (max-width: 640px) {
       .plan-tab-btn { padding: 14px 16px; }
       .tab-emoji { font-size: 1.5rem; }
+
+    /* ─── PLAN OVERLAY (nova "página") ─────────────────────────────── */
+    .plan-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.32s cubic-bezier(0.4,0,0.2,1);
+      overflow: hidden;
+    }
+    .plan-overlay.open { transform: translateX(0); }
+
+    .overlay-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--cinza-esc);
+      border-bottom: 1px solid rgba(22,163,74,0.3);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 24px;
+      flex-shrink: 0;
+    }
+    .overlay-back {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #D1D5DB;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .overlay-back:hover { background: rgba(255,255,255,0.14); color: #fff; }
+    .overlay-topbar-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #fff;
+      flex: 1;
+    }
+    .overlay-topbar-price {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--verde);
+      white-space: nowrap;
+    }
+    .overlay-scroll {
+      flex: 1;
+      overflow-y: auto;
+      background: var(--branco);
+    }
+    .overlay-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+    /* inside overlay: plan-card fills width, no animation */
+    .overlay-inner .plan-card {
+      display: block !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      animation: none !important;
+    }
+    .overlay-inner .plan-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 40px;
+    }
+    .overlay-inner .plan-section-title { grid-column: 1 / -1; }
+    .overlay-inner .plan-note          { grid-column: 1 / -1; }
+    .overlay-inner .two-col-list       { grid-column: 1 / -1; }
+
+    /* ─── PLAN PREVIEW CARDS (substituem as abas) ───────────────────── */
+    .plans-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .plan-preview-card {
+      border: 2px solid #E5E7EB;
+      border-radius: 18px;
+      padding: 32px 28px;
+      cursor: pointer;
+      transition: all 0.22s;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .plan-preview-card:hover {
+      border-color: var(--verde);
+      box-shadow: 0 8px 32px rgba(22,163,74,0.15);
+      transform: translateY(-3px);
+    }
+    .plan-preview-card.featured-preview {
+      border-color: var(--verde);
+      background: var(--verde-claro);
+      box-shadow: 0 4px 20px rgba(22,163,74,0.13);
+    }
+    .plan-preview-card.featured-preview:hover {
+      box-shadow: 0 12px 40px rgba(22,163,74,0.22);
+    }
+    .preview-badge {
+      display: inline-block;
+      background: var(--verde);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      align-self: flex-start;
+    }
+    .preview-emoji { font-size: 2.4rem; margin-bottom: 10px; display: block; }
+    .preview-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--cinza-esc);
+      margin-bottom: 4px;
+    }
+    .preview-price {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1.9rem;
+      color: var(--verde);
+      line-height: 1;
+      margin: 10px 0 4px;
+    }
+    .preview-price-note { font-size: 0.78rem; color: var(--cinza-med); margin-bottom: 20px; }
+    .preview-metrics {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 28px;
+    }
+    .preview-metric {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: var(--cinza-esc);
+    }
+    .preview-metric::before {
+      content: '▸';
+      color: var(--verde);
+      font-size: 0.7rem;
+    }
+    .preview-btn {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 13px 20px;
+      background: var(--verde);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .preview-btn:hover { background: var(--verde-esc); transform: translateY(-1px); }
+    .plan-preview-card.featured-preview .preview-btn {
+      background: var(--cinza-esc);
+    }
+    .plan-preview-card.featured-preview .preview-btn:hover { background: #111827; }
+
+    @media (max-width: 900px) {
+      .plans-preview-grid { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; }
+      .overlay-inner .plan-body { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .overlay-topbar { padding: 12px 16px; flex-wrap: wrap; }
+      .overlay-inner  { padding: 24px 16px 60px; }
+    }
   </style>
 </head>
 <body>
@@ -945,37 +1139,70 @@
       <p class="section-sub">Três planos com escopos diferentes. O investimento de setup (R$2.500) é cobrado uma única vez e vale para qualquer plano.</p>
       <div class="section-divider"></div>
     </div>
-    <div class="plan-tabs-bar">
-      <button class="plan-tab-btn" onclick="switchPlan('plan-broto', this)">
-        <span class="tab-emoji">🌱</span>
-        <span class="tab-info">
-          <span class="tab-name">Broto</span>
-          <span class="tab-price">R$ 1.800/mês</span>
-        </span>
-        <span class="tab-arrow">›</span>
-      </button>
-      <button class="plan-tab-btn tab-featured active" onclick="switchPlan('plan-planta', this)">
-        <span class="tab-emoji">🌿</span>
-        <span class="tab-info">
-          <span class="tab-name">Planta</span>
-          <span class="tab-price">R$ 3.200/mês</span>
-          <span class="tab-rec">⭐ Recomendado</span>
-        </span>
-        <span class="tab-arrow">›</span>
-      </button>
-      <button class="plan-tab-btn" onclick="switchPlan('plan-arvore', this)">
-        <span class="tab-emoji">🌳</span>
-        <span class="tab-info">
-          <span class="tab-name">Árvore</span>
-          <span class="tab-price">R$ 5.500/mês</span>
-        </span>
-        <span class="tab-arrow">›</span>
-      </button>
-    </div>
-    <div class="plans-grid">
+    <div class="plans-preview-grid">
 
-      <!-- ─── PLANO BROTO ─────────────────────────────────────────── -->
-      <div class="plan-card" id="plan-broto">
+      <!-- CARD BROTO -->
+      <div class="plan-preview-card" onclick="openPlan('overlay-broto')">
+        <span class="preview-emoji">🌱</span>
+        <div class="preview-name">Broto</div>
+        <div class="preview-price">R$ 1.800</div>
+        <div class="preview-price-note">por mês</div>
+        <div class="preview-metrics">
+          <span class="preview-metric">12 posts no feed por mês</span>
+          <span class="preview-metric">4 reels editados por mês</span>
+          <span class="preview-metric">1 visita de captação por mês</span>
+          <span class="preview-metric">Tráfego pago — Meta Ads</span>
+        </div>
+        <button class="preview-btn">Ver plano completo ›</button>
+      </div>
+
+      <!-- CARD PLANTA -->
+      <div class="plan-preview-card featured-preview" onclick="openPlan('overlay-planta')">
+        <span class="preview-badge">⭐ Recomendado para o Armazém</span>
+        <span class="preview-emoji">🌿</span>
+        <div class="preview-name">Planta</div>
+        <div class="preview-price">R$ 3.200</div>
+        <div class="preview-price-note">por mês</div>
+        <div class="preview-metrics">
+          <span class="preview-metric">16 posts no feed por mês</span>
+          <span class="preview-metric">8 reels editados por mês</span>
+          <span class="preview-metric">2 visitas de captação por mês</span>
+          <span class="preview-metric">Tráfego pago — Meta Ads</span>
+        </div>
+        <button class="preview-btn">Ver plano completo ›</button>
+      </div>
+
+      <!-- CARD ÁRVORE -->
+      <div class="plan-preview-card" onclick="openPlan('overlay-arvore')">
+        <span class="preview-emoji">🌳</span>
+        <div class="preview-name">Árvore</div>
+        <div class="preview-price">R$ 5.500</div>
+        <div class="preview-price-note">por mês</div>
+        <div class="preview-metrics">
+          <span class="preview-metric">20 posts no feed por mês</span>
+          <span class="preview-metric">12 reels editados por mês</span>
+          <span class="preview-metric">4 visitas de captação por mês</span>
+          <span class="preview-metric">IA + CRM + Automação incluso</span>
+        </div>
+        <button class="preview-btn">Ver plano completo ›</button>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- OVERLAY BROTO -->
+<div id="overlay-broto" class="plan-overlay" role="dialog" aria-modal="true">
+  <div class="overlay-topbar">
+    <button class="overlay-back" onclick="closePlan('overlay-broto')">&#8592; Voltar aos planos</button>
+    <span class="overlay-topbar-title">🌱 Plano Broto</span>
+    <span class="overlay-topbar-price">R$ 1.800/mês</span>
+  </div>
+  <div class="overlay-scroll">
+    <div class="overlay-inner">
+            <div class="plan-card" id="plan-broto">
         <div class="plan-header">
           <span class="plan-badge">🌱 Plano Broto</span>
           <div class="plan-name">Broto</div>
@@ -1037,9 +1264,19 @@
           <div class="plan-footer-row"><strong>Suporte:</strong><span class="val">WhatsApp</span></div>
         </div>
       </div>
-
-      <!-- ─── PLANO PLANTA ────────────────────────────────────────── -->
-      <div class="plan-card featured plan-active" id="plan-planta">
+    </div>
+  </div>
+</div>
+<!-- OVERLAY PLANTA -->
+<div id="overlay-planta" class="plan-overlay" role="dialog" aria-modal="true">
+  <div class="overlay-topbar">
+    <button class="overlay-back" onclick="closePlan('overlay-planta')">&#8592; Voltar aos planos</button>
+    <span class="overlay-topbar-title">🌿 Plano Planta — Recomendado</span>
+    <span class="overlay-topbar-price">R$ 3.200/mês</span>
+  </div>
+  <div class="overlay-scroll">
+    <div class="overlay-inner">
+            <div class="plan-card featured plan-active" id="plan-planta">
         <div class="plan-header">
           <span class="plan-badge">⭐ Recomendado para o Armazém</span>
           <div class="plan-name">Planta</div>
@@ -1118,9 +1355,19 @@
           <div class="plan-footer-row"><strong>Suporte:</strong><span class="val">WhatsApp</span></div>
         </div>
       </div>
-
-      <!-- ─── PLANO ÁRVORE ────────────────────────────────────────── -->
-      <div class="plan-card" id="plan-arvore">
+    </div>
+  </div>
+</div>
+<!-- OVERLAY ÁRVORE -->
+<div id="overlay-arvore" class="plan-overlay" role="dialog" aria-modal="true">
+  <div class="overlay-topbar">
+    <button class="overlay-back" onclick="closePlan('overlay-arvore')">&#8592; Voltar aos planos</button>
+    <span class="overlay-topbar-title">🌳 Plano Árvore</span>
+    <span class="overlay-topbar-price">R$ 5.500/mês</span>
+  </div>
+  <div class="overlay-scroll">
+    <div class="overlay-inner">
+            <div class="plan-card" id="plan-arvore">
         <div class="plan-header">
           <span class="plan-badge">🌳 Plano Árvore</span>
           <div class="plan-name">Árvore</div>
@@ -1190,10 +1437,9 @@
           <div class="plan-footer-row"><strong>Suporte:</strong><span class="val">Prioritário — resposta em até 4h úteis</span></div>
         </div>
       </div>
-
     </div>
   </div>
-</section>
+</div>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <!-- COMPARATIVO                                                         -->
@@ -1548,13 +1794,28 @@
 </footer>
 
 <script>
-  function switchPlan(targetId, btn) {
-    document.querySelectorAll('.plan-card').forEach(function(c) { c.classList.remove('plan-active'); });
-    document.querySelectorAll('.plan-tab-btn').forEach(function(b) { b.classList.remove('active'); });
-    document.getElementById(targetId).classList.add('plan-active');
-    btn.classList.add('active');
-    var section = document.getElementById('planos');
-    if (section) { section.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  function openPlan(id) {
+    var overlay = document.getElementById(id);
+    if (!overlay) return;
+    overlay.classList.add('open');
+    overlay.querySelector('.overlay-scroll').scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+  }
+  function closePlan(id) {
+    var overlay = document.getElementById(id);
+    if (!overlay) return;
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.plan-overlay.open').forEach(function(o) {
+        o.classList.remove('open');
+      });
+      document.body.style.overflow = '';
+    }
+  });
+); }
   }
 
   // Smooth scroll polyfill fallback for older browsers
