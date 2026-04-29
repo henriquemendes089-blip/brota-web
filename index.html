@@ -751,8 +751,13 @@
     .plan-tab-btn.active .tab-arrow { transform: translateX(3px); }
     .plan-tab-btn.tab-featured.active .tab-arrow { color: rgba(255,255,255,0.8); }
 
-    /* override grid para display single */
-    .plans-grid { display: block !important; }
+    /* Planos — grid horizontal 3 colunas */
+    .plans-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
 
     .plan-card {
       display: none;
@@ -769,16 +774,7 @@
     }
 
     /* Solo view: body sections em 2 colunas */
-    .plan-card.plan-active .plan-body {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      column-gap: 40px;
-      row-gap: 0;
-    }
-    .plan-card.plan-active .plan-section-title { grid-column: 1 / -1; }
-    .plan-card.plan-active .plan-list         { margin-bottom: 4px; }
-    .plan-card.plan-active .plan-note         { grid-column: 1 / -1; }
-    .plan-card.plan-active .two-col-list      { grid-column: 1 / -1; }
+    
 
     @media (max-width: 900px) {
       .plan-tabs-bar { grid-template-columns: 1fr; }
@@ -982,7 +978,6 @@
       .overlay-inner  { padding: 24px 16px 60px; }
     }
   </style>
-  <!-- deploy: 2026-04-29 13:01:54 -->
 </head>
 <body>
 
@@ -1143,7 +1138,7 @@
     <div class="plans-preview-grid">
 
       <!-- CARD BROTO -->
-      <div class="plan-preview-card" onclick="openPlan('overlay-broto')">
+      <div class="plan-preview-card" onclick="openOverlay('broto')">
         <span class="preview-emoji">🌱</span>
         <div class="preview-name">Broto</div>
         <div class="preview-price">R$ 1.800</div>
@@ -1158,7 +1153,7 @@
       </div>
 
       <!-- CARD PLANTA -->
-      <div class="plan-preview-card featured-preview" onclick="openPlan('overlay-planta')">
+      <div class="plan-preview-card featured-preview" onclick="openOverlay('planta')">
         <span class="preview-badge">⭐ Recomendado para o Armazém</span>
         <span class="preview-emoji">🌿</span>
         <div class="preview-name">Planta</div>
@@ -1174,7 +1169,7 @@
       </div>
 
       <!-- CARD ÁRVORE -->
-      <div class="plan-preview-card" onclick="openPlan('overlay-arvore')">
+      <div class="plan-preview-card" onclick="openOverlay('arvore')">
         <span class="preview-emoji">🌳</span>
         <div class="preview-name">Árvore</div>
         <div class="preview-price">R$ 5.500</div>
@@ -1195,14 +1190,12 @@
 
 
 <!-- OVERLAY BROTO -->
-<div id="overlay-broto" class="plan-overlay" role="dialog" aria-modal="true">
-  <div class="overlay-topbar">
-    <button class="overlay-back" onclick="closePlan('overlay-broto')">&#8592; Voltar aos planos</button>
-    <span class="overlay-topbar-title">🌱 Plano Broto</span>
-    <span class="overlay-topbar-price">R$ 1.800/mês</span>
+<div id="overlay-broto" class="plan-overlay">
+  <div class="overlay-header">
+    <button class="btn-back" onclick="closeOverlay('broto')">&#8592; Voltar aos planos</button>
+    <span class="overlay-header-title">🌱 Plano Broto — R$ 1.800/mês</span>
   </div>
-  <div class="overlay-scroll">
-    <div class="overlay-inner">
+  <div class="overlay-body">
             <div class="plan-card" id="plan-broto">
         <div class="plan-header">
           <span class="plan-badge">🌱 Plano Broto</span>
@@ -1269,14 +1262,12 @@
   </div>
 </div>
 <!-- OVERLAY PLANTA -->
-<div id="overlay-planta" class="plan-overlay" role="dialog" aria-modal="true">
-  <div class="overlay-topbar">
-    <button class="overlay-back" onclick="closePlan('overlay-planta')">&#8592; Voltar aos planos</button>
-    <span class="overlay-topbar-title">🌿 Plano Planta — Recomendado</span>
-    <span class="overlay-topbar-price">R$ 3.200/mês</span>
+<div id="overlay-planta" class="plan-overlay">
+  <div class="overlay-header">
+    <button class="btn-back" onclick="closeOverlay('planta')">&#8592; Voltar aos planos</button>
+    <span class="overlay-header-title">🌿 Plano Planta — R$ 3.200/mês</span>
   </div>
-  <div class="overlay-scroll">
-    <div class="overlay-inner">
+  <div class="overlay-body">
             <div class="plan-card featured plan-active" id="plan-planta">
         <div class="plan-header">
           <span class="plan-badge">⭐ Recomendado para o Armazém</span>
@@ -1360,14 +1351,12 @@
   </div>
 </div>
 <!-- OVERLAY ÁRVORE -->
-<div id="overlay-arvore" class="plan-overlay" role="dialog" aria-modal="true">
-  <div class="overlay-topbar">
-    <button class="overlay-back" onclick="closePlan('overlay-arvore')">&#8592; Voltar aos planos</button>
-    <span class="overlay-topbar-title">🌳 Plano Árvore</span>
-    <span class="overlay-topbar-price">R$ 5.500/mês</span>
+<div id="overlay-arvore" class="plan-overlay">
+  <div class="overlay-header">
+    <button class="btn-back" onclick="closeOverlay('arvore')">&#8592; Voltar aos planos</button>
+    <span class="overlay-header-title">🌳 Plano Árvore — R$ 5.500/mês</span>
   </div>
-  <div class="overlay-scroll">
-    <div class="overlay-inner">
+  <div class="overlay-body">
             <div class="plan-card" id="plan-arvore">
         <div class="plan-header">
           <span class="plan-badge">🌳 Plano Árvore</span>
@@ -1438,7 +1427,6 @@
           <div class="plan-footer-row"><strong>Suporte:</strong><span class="val">Prioritário — resposta em até 4h úteis</span></div>
         </div>
       </div>
-    </div>
   </div>
 </div>
 
@@ -1795,19 +1783,25 @@
 </footer>
 
 <script>
-  function openPlan(id) {
-    var overlay = document.getElementById(id);
-    if (!overlay) return;
-    overlay.classList.add('open');
-    overlay.querySelector('.overlay-scroll').scrollTop = 0;
+  function openOverlay(planId) {
+    var el = document.getElementById('overlay-' + planId);
+    if (!el) return;
+    el.style.display = 'block';
     document.body.style.overflow = 'hidden';
+    window.scrollTo(0, 0);
   }
-  function closePlan(id) {
-    var overlay = document.getElementById(id);
-    if (!overlay) return;
-    overlay.classList.remove('open');
+  function closeOverlay(planId) {
+    var el = document.getElementById('overlay-' + planId);
+    if (!el) return;
+    el.style.display = 'none';
     document.body.style.overflow = '';
   }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.plan-overlay').forEach(function(o) { o.style.display = 'none'; });
+      document.body.style.overflow = '';
+    }
+  });
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
       document.querySelectorAll('.plan-overlay.open').forEach(function(o) {
