@@ -790,85 +790,307 @@
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: #ffffff;
+      background: #F1F5F9;
       z-index: 1000;
       overflow-y: auto;
       display: none;
-      animation: slideUp 0.3s ease;
+      animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
     @keyframes slideUp {
-      from { transform: translateY(30px); opacity: 0; }
+      from { transform: translateY(40px); opacity: 0; }
       to   { transform: translateY(0);    opacity: 1; }
     }
 
-    .overlay-topbar {
+    /* ── Sticky topbar ── */
+    .plan-overlay .overlay-header {
       position: sticky;
       top: 0;
       z-index: 10;
-      background: var(--cinza-esc);
-      border-bottom: 1px solid rgba(22,163,74,0.3);
+      background: #111827;
+      border-bottom: 2px solid rgba(22,163,74,0.5);
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      padding: 13px 40px;
       gap: 16px;
-      padding: 14px 24px;
-      flex-shrink: 0;
     }
-    .overlay-back {
-      display: flex;
+    .plan-overlay .btn-back {
+      display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.18);
       color: #D1D5DB;
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.875rem;
+      font-size: 0.82rem;
       font-weight: 500;
-      padding: 8px 16px;
+      padding: 8px 18px;
       border-radius: 8px;
       cursor: pointer;
       transition: all 0.2s;
-      flex-shrink: 0;
+      letter-spacing: 0.01em;
     }
-    .overlay-back:hover { background: rgba(255,255,255,0.14); color: #fff; }
-    .overlay-topbar-title {
+    .plan-overlay .btn-back:hover {
+      background: rgba(255,255,255,0.13);
+      color: #fff;
+      border-color: rgba(255,255,255,0.3);
+    }
+    .plan-overlay .overlay-header-title {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 700;
-      font-size: 1rem;
-      color: #fff;
-      flex: 1;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.01em;
     }
-    .overlay-topbar-price {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 800;
-      font-size: 1.1rem;
-      color: var(--verde);
-      white-space: nowrap;
-    }
-    .overlay-scroll {
-      flex: 1;
-      overflow-y: auto;
-      background: var(--branco);
-    }
-    .overlay-inner {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 40px 24px 80px;
-    }
-    /* inside overlay: plan-card fills width, no animation */
-    .overlay-inner .plan-card, .overlay-body .plan-card {
+
+    /* ── Plan card reset inside overlay ── */
+    .plan-overlay .overlay-body .plan-card {
       display: block !important;
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      overflow: visible !important;
+      transform: none !important;
+      animation: none !important;
+      background: transparent !important;
       max-width: 100% !important;
       margin: 0 !important;
-      animation: none !important;
     }
-    .overlay-inner .plan-body {
+
+    /* ── HERO: plan-header becomes full dark banner ── */
+    .plan-overlay .plan-header {
+      background: linear-gradient(155deg, #0D1F13 0%, #143520 55%, #1A4228 100%) !important;
+      padding: 56px 48px 52px !important;
+      border-bottom: none !important;
+      position: relative;
+      overflow: hidden;
+    }
+    .plan-overlay .plan-header::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -80px;
+      width: 420px; height: 420px;
+      background: radial-gradient(circle, rgba(22,163,74,0.22) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .plan-overlay .plan-header::after {
+      content: '';
+      position: absolute;
+      bottom: -30px; left: -60px;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(74,222,128,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .plan-overlay .plan-header .plan-badge {
+      background: rgba(22,163,74,0.22) !important;
+      border: 1px solid rgba(74,222,128,0.35) !important;
+      color: #6EE7A0 !important;
+      font-size: 0.68rem !important;
+      letter-spacing: 0.12em !important;
+    }
+    .plan-overlay .plan-header .plan-name {
+      font-size: clamp(2.2rem, 5vw, 3.2rem) !important;
+      font-weight: 800 !important;
+      color: #fff !important;
+      letter-spacing: -0.04em !important;
+      margin-top: 18px !important;
+      margin-bottom: 10px !important;
+      line-height: 1 !important;
+    }
+    .plan-overlay .plan-header .plan-price {
+      font-size: clamp(2.6rem, 6vw, 3.8rem) !important;
+      color: #4ADE80 !important;
+      letter-spacing: -0.05em !important;
+      line-height: 1 !important;
+      margin: 0 !important;
+    }
+    .plan-overlay .plan-header .plan-price-note {
+      font-size: 1rem !important;
+      color: rgba(255,255,255,0.45) !important;
+      margin-top: 8px !important;
+      display: block;
+    }
+    /* Featured plan (Planta) — deeper forest */
+    .plan-overlay .plan-card.featured .plan-header {
+      background: linear-gradient(155deg, #052E16 0%, #14532D 55%, #166534 100%) !important;
+    }
+    .plan-overlay .plan-card.featured .plan-header .plan-price { color: #86EFAC !important; }
+    /* Árvore — premium deep */
+    #overlay-arvore .plan-header {
+      background: linear-gradient(155deg, #111827 0%, #1B2E4A 50%, #1E3A5F 100%) !important;
+    }
+    #overlay-arvore .plan-header .plan-price { color: #93C5FD !important; }
+    #overlay-arvore .plan-header::before {
+      background: radial-gradient(circle, rgba(59,130,246,0.2) 0%, transparent 65%);
+    }
+
+    /* ── STAT PILLS → dark stat cards ── */
+    .plan-overlay .plan-pills {
+      background: #111827 !important;
+      border-bottom: none !important;
+      padding: 0 48px 36px !important;
+      display: grid !important;
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 12px !important;
+    }
+    #overlay-arvore .plan-pills { background: #0F172A !important; }
+    .plan-overlay .plan-pill {
+      background: rgba(255,255,255,0.07) !important;
+      border: 1px solid rgba(255,255,255,0.12) !important;
+      border-radius: 12px !important;
+      padding: 16px 12px !important;
+      text-align: center !important;
+      font-size: 0.78rem !important;
+      font-weight: 600 !important;
+      color: rgba(255,255,255,0.82) !important;
+      line-height: 1.5 !important;
+      letter-spacing: 0.01em !important;
+    }
+
+    /* ── BODY: white content area, centered ── */
+    .plan-overlay .plan-body {
+      max-width: 860px !important;
+      margin: 0 auto !important;
+      padding: 40px 48px 20px !important;
+      display: block !important;
+      background: transparent !important;
+    }
+
+    /* ── Section titles: card-style header ── */
+    .plan-overlay .plan-section-title {
+      display: flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 0.75rem !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+      color: var(--verde-esc) !important;
+      background: #fff !important;
+      border: 1px solid #E5E7EB !important;
+      border-left: 4px solid var(--verde) !important;
+      border-radius: 0 10px 10px 0 !important;
+      padding: 12px 20px !important;
+      margin: 28px 0 0 !important;
+      border-bottom: 1px solid #E5E7EB !important;
+    }
+    .plan-overlay .plan-section-title:first-child { margin-top: 0 !important; }
+
+    /* ── Lists as clean row cards ── */
+    .plan-overlay .plan-list {
+      background: #fff !important;
+      border: 1px solid #E5E7EB !important;
+      border-top: none !important;
+      border-radius: 0 0 10px 10px !important;
+      overflow: hidden !important;
+      padding: 0 !important;
+      gap: 0 !important;
+      margin-bottom: 0 !important;
+    }
+    .plan-overlay .plan-list li {
+      font-size: 0.875rem !important;
+      color: #374151 !important;
+      padding: 11px 20px 11px 42px !important;
+      border-bottom: 1px solid #F9FAFB !important;
+      line-height: 1.6 !important;
+      position: relative !important;
+    }
+    .plan-overlay .plan-list li:last-child { border-bottom: none !important; }
+    .plan-overlay .plan-list li::before {
+      content: '▸' !important;
+      color: var(--verde) !important;
+      position: absolute !important;
+      left: 20px !important;
+      top: 13px !important;
+      font-size: 0.7rem !important;
+    }
+    .plan-overlay .plan-list li strong {
+      color: #111827 !important;
+      font-weight: 600 !important;
+    }
+
+    /* ── Info notes ── */
+    .plan-overlay .plan-note {
+      font-size: 0.83rem !important;
+      background: #F0FDF4 !important;
+      border: 1px solid #BBF7D0 !important;
+      border-left: 4px solid var(--verde) !important;
+      border-radius: 0 10px 10px 0 !important;
+      padding: 12px 18px !important;
+      color: #166534 !important;
+      margin-top: 0 !important;
+      line-height: 1.6 !important;
+    }
+
+    /* ── Two-col story list inside overlay ── */
+    .plan-overlay .two-col-list {
+      background: #fff;
+      border: 1px solid #E5E7EB;
+      border-top: none;
+      border-radius: 0 0 10px 10px;
+      overflow: hidden;
+      padding: 16px 20px;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      column-gap: 40px;
+      gap: 16px;
     }
-    .overlay-inner .plan-section-title { grid-column: 1 / -1; }
-    .overlay-inner .plan-note          { grid-column: 1 / -1; }
-    .overlay-inner .two-col-list       { grid-column: 1 / -1; }
+    .plan-overlay .two-col-group-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--verde);
+      margin-bottom: 10px;
+    }
+
+    /* ── FOOTER as info grid ── */
+    .plan-overlay .plan-footer {
+      max-width: 860px !important;
+      margin: 24px auto 60px !important;
+      padding: 0 48px !important;
+      background: transparent !important;
+      border: none !important;
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 12px !important;
+    }
+    .plan-overlay .plan-footer-row {
+      background: #fff !important;
+      border: 1px solid #E5E7EB !important;
+      border-radius: 12px !important;
+      padding: 14px 18px !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+      font-size: 0.85rem !important;
+      margin-bottom: 0 !important;
+    }
+    .plan-overlay .plan-footer-row strong {
+      color: var(--verde-esc) !important;
+      font-weight: 600 !important;
+      min-width: 90px !important;
+    }
+    .plan-overlay .plan-footer-row span.val {
+      color: #374151 !important;
+      font-weight: 500 !important;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .plan-overlay .plan-header { padding: 40px 28px 36px !important; }
+      .plan-overlay .plan-pills  { padding: 0 28px 28px !important; grid-template-columns: repeat(2, 1fr) !important; }
+      .plan-overlay .plan-body   { padding: 28px !important; }
+      .plan-overlay .plan-footer { padding: 0 28px !important; grid-template-columns: 1fr !important; }
+      .plan-overlay .overlay-header { padding: 12px 20px; }
+    }
+    @media (max-width: 560px) {
+      .plan-overlay .plan-header { padding: 32px 20px 28px !important; }
+      .plan-overlay .plan-pills  { padding: 0 20px 24px !important; }
+      .plan-overlay .plan-body   { padding: 20px !important; }
+      .plan-overlay .plan-footer { padding: 0 20px !important; }
+      .plan-overlay .two-col-list { grid-template-columns: 1fr !important; }
+    }
 
     /* ─── PLAN PREVIEW CARDS (substituem as abas) ───────────────────── */
     .plans-preview-grid {
